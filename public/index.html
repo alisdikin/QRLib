@@ -104,17 +104,67 @@
                 </div>
             </div>
 
-            <div v-if="cookie" class="mt-8 pt-6 border-t border-[var(--glass-border)] animate-fade-in-up">
-                <h4 class="font-bold text-[var(--primary)] mb-4 text-xl">登录凭证</h4>
-                <div class="bg-[var(--secondary)] text-white p-5 rounded-2xl text-sm break-all relative group cursor-pointer hover:bg-opacity-90 transition-all font-mono leading-loose"
-                    @click="copyCookie">
-                    {{ cookie }}
-                    <div
-                        class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl backdrop-blur-sm">
-                        <span class="font-bold text-white flex items-center gap-3 text-lg">
-                            <i class="ph" :class="copied ? 'ph-check' : 'ph-copy'"></i>
-                            {{ copied ? '已复制' : '点击复制' }}
-                        </span>
+            <div v-if="loginSuccess" class="mt-8 pt-6 border-t border-[var(--glass-border)] animate-fade-in-up">
+
+                <!-- Avatar -->
+                <div v-if="avatar" class="flex justify-center mb-6 relative">
+                    <div class="relative">
+                        <img :src="avatar" alt="Avatar"
+                            class="w-24 h-24 rounded-full shadow-xl border-4 border-[var(--glass-border)]">
+                        <div
+                            class="absolute bottom-0 right-0 bg-green-500 w-6 h-6 rounded-full border-4 border-[#2d2f36]">
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="font-bold text-[var(--primary)] mb-4 text-xl flex items-center gap-2">
+                    <i class="ph ph-identification-card"></i> 登录凭证
+                </h4>
+
+                <div class="space-y-3">
+                    <!-- UIN -->
+                    <div v-if="credentials.uin"
+                        class="bg-[var(--secondary)]/30 border border-[var(--glass-border)] rounded-xl p-3 relative group transition-all hover:bg-[var(--secondary)]/50">
+                        <div
+                            class="text-[10px] uppercase text-[var(--text-secondary)] font-bold mb-1 tracking-wider opacity-70">
+                            QQ / UIN</div>
+                        <div class="font-mono text-sm break-all text-[var(--primary)] pr-10 font-bold">{{
+                            credentials.uin }}</div>
+                        <button @click="copyCookie(credentials.uin)"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:bg-[var(--primary)] hover:text-white transition-colors text-[var(--text-secondary)]"
+                            title="复制">
+                            <i class="ph ph-copy text-lg"></i>
+                        </button>
+                    </div>
+
+                    <!-- Authorization Code -->
+                    <div v-if="credentials.code"
+                        class="bg-[var(--secondary)]/30 border border-[var(--glass-border)] rounded-xl p-3 relative group transition-all hover:bg-[var(--secondary)]/50">
+                        <div
+                            class="text-[10px] uppercase text-[var(--text-secondary)] font-bold mb-1 tracking-wider opacity-70">
+                            Authorization Code</div>
+                        <div class="font-mono text-xs break-all text-[var(--text-secondary)] pr-10 leading-relaxed">{{
+                            credentials.code }}</div>
+                        <button @click="copyCookie(credentials.code)"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:bg-[var(--primary)] hover:text-white transition-colors text-[var(--text-secondary)]"
+                            title="复制">
+                            <i class="ph ph-copy text-lg"></i>
+                        </button>
+                    </div>
+
+                    <!-- Ticket -->
+                    <div v-if="credentials.ticket"
+                        class="bg-[var(--secondary)]/30 border border-[var(--glass-border)] rounded-xl p-3 relative group transition-all hover:bg-[var(--secondary)]/50">
+                        <div
+                            class="text-[10px] uppercase text-[var(--text-secondary)] font-bold mb-1 tracking-wider opacity-70">
+                            Ticket</div>
+                        <div class="font-mono text-xs break-all text-[var(--text-secondary)] pr-10 leading-relaxed">{{
+                            credentials.ticket }}</div>
+                        <button @click="copyCookie(credentials.ticket)"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:bg-[var(--primary)] hover:text-white transition-colors text-[var(--text-secondary)]"
+                            title="复制">
+                            <i class="ph ph-copy text-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>

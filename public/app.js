@@ -16,6 +16,9 @@ createApp({
             nickname: '',
             copied: false,
             customAppId: '',
+            customAppId: '',
+            avatar: '',
+            credentials: { uin: '', code: '', ticket: '' },
             loginSuccess: false
         }
     },
@@ -47,6 +50,8 @@ createApp({
             this.cookie = null;
             this.ticket = null; // Reset ticket
             this.status = { ret: '', msg: '' };
+            this.avatar = '';
+            this.credentials = { uin: '', code: '', ticket: '' };
             this.customAppId = ''; // Reset custom AppID on switch? Maybe keep it.
             this.loginSuccess = false;
             // Auto-fill AppID from preset config
@@ -67,7 +72,10 @@ createApp({
             this.cookie = null;
             this.ticket = null;
             this.qrImage = null;
+            this.qrImage = null;
             this.nickname = '';
+            this.avatar = '';
+            this.credentials = { uin: '', code: '', ticket: '' };
             this.loginSuccess = false;
 
             try {
@@ -141,16 +149,18 @@ createApp({
                         this.loginSuccess = true;
                         this.qrImage = null; // Clear QR code
 
-                        // New Data Format
-                        this.cookie = null; // reused variable name for display text, or we can change logic
-                        // Let's format the display string
-                        const parts = [];
-                        if (data.uin) parts.push(`UIN: ${data.uin}`);
-                        if (data.code) parts.push(`CODE: ${data.code}`);
-                        if (data.ticket) parts.push(`TICKET: ${data.ticket}`);
 
-                        this.cookie = parts.join('\n'); // Display formatted text
-                        this.log(`Got Code/UIN.`);
+                        // New Data Format
+                        this.cookie = null;
+
+                        this.avatar = data.avatar || '';
+                        this.credentials = {
+                            uin: data.uin || '',
+                            code: data.code || '',
+                            ticket: data.ticket || ''
+                        };
+
+                        this.log(`Got Code/UIN. Login Success.`);
                     }
                     // Expired Case
                     else if (data.ret === '65') {
@@ -163,14 +173,14 @@ createApp({
             }
         },
 
-        copyCookie() {
-            const content = this.cookie || this.ticket;
+        copyCookie(text) {
+            const content = text || this.cookie || this.ticket;
             if (!content) return;
 
             navigator.clipboard.writeText(content).then(() => {
                 this.log('Copied to clipboard!');
-                this.copied = true;
-                setTimeout(() => this.copied = false, 2000);
+                // We might need a specific 'copied' state for each button if we want specific feedback
+                // For now, global toast/log is fine
             });
         },
 

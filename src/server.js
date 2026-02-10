@@ -106,6 +106,7 @@ app.post('/api/qr/check', async (req, res) => {
             // New return fields
             let code = '';
             let uin = '';
+            let avatar = '';
             let ticket = '';
 
             if (result.status === 'Wait') {
@@ -119,6 +120,9 @@ app.post('/api/qr/check', async (req, res) => {
                 msg = '登录成功';
                 ticket = result.ticket;
                 uin = result.uin || ''; // Get UIN from MP status result
+                if (uin) {
+                    avatar = `https://q1.qlogo.cn/g?b=qq&nk=${uin}&s=640`;
+                }
 
                 // Determine AppID
                 const appid = customAppId || mpConfig.appid || '1108291530';
@@ -136,7 +140,7 @@ app.post('/api/qr/check', async (req, res) => {
             }
 
             // Return flattened structure as requested
-            res.json({ success: true, ret, msg, code, uin, ticket });
+            res.json({ success: true, ret, msg, code, uin, ticket, avatar });
 
         } else {
             // --- Standard QR Strategy ---
@@ -144,12 +148,16 @@ app.post('/api/qr/check', async (req, res) => {
 
             let code = '';
             let uin = '';
+            let avatar = '';
             let ticket = ''; // QR login might not have 'ticket' in MP sense, but might have 'code' in url
 
             if (result.ret === '0') {
                 // Determine UIN from cookies
                 if (result.cookie) {
                     uin = CookieUtils.getUin(result.cookie);
+                    if (uin) {
+                        avatar = `https://q1.qlogo.cn/g?b=qq&nk=${uin}&s=640`;
+                    }
                 }
 
                 // Determine 'Code'
@@ -165,7 +173,7 @@ app.post('/api/qr/check', async (req, res) => {
             // Clean up result - remove old fields we don't want
             const { nickname, jumpUrl, cookie, ...rest } = result;
 
-            res.json({ success: true, ...rest, code, uin, ticket });
+            res.json({ success: true, ...rest, code, uin, ticket, avatar });
         }
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });

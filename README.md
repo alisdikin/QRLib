@@ -29,6 +29,23 @@
     └── README.md           # 说明文档
     ```
 
+## 🐳 Docker 部署 (推荐)
+
+如果您熟悉 Docker，可以使用以下命令快速启动：
+
+1.  **构建并启动容器**
+    ```bash
+    docker-compose up -d
+    ```
+
+2.  **访问服务**
+    浏览器打开 [http://localhost:3000](http://localhost:3000)
+
+3.  **停止服务**
+    ```bash
+    docker-compose down
+    ```
+
 ## 🚀 启动与部署
 
 ### 开发模式 / 本地运行
